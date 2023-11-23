@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <title>Text-to-Speech Converter | Voice Options, Speed Control </title>
+  <meta name="description" content="Transform text into speech with customizable voice options and speed control. Store your texts locally. Experience seamless reading on gilesalonso/tts.">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="icon" href="https://icons.veryicon.com/png/o/object/material-design-icons-1/text-to-speech.png" type="image/x-icon">
+  <style>
+    /* Add any custom styles here */
+    body {
+      padding: 20px;
+    }
+
+    #storedData {
+      margin-top: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="row">
+      <div class="col-md-12">
+        <label for="voiceSelect">Select Voice:</label>
+        <select id="voiceSelect" class="form-control mb-3"></select>
+        <div id="rate-control">
+          <label for="rate" class="form-label">Speed:</label>
+          <input type="range" class="form-range w-100" min="0.5" max="2" value="1.35" step="0.1" id="rate">
+        </div>
+        <textarea id="textInput" rows="10" class="form-control mb-3" placeholder="Enter text"></textarea>
+        <div class="d-flex justify-content-between">
+          <button id="playButton" class="btn btn-primary btn-lg w-25 m-1">Play</button>
+          <button id="pauseButton" class="btn btn-secondary btn-lg w-25 m-1">Pause</button>
+          <button id="clearButton" class="btn btn-danger btn-lg w-25 m-1">Clear</button>
+          <button id="storeButton" class="btn btn-success btn-lg w-25 m-1">Store</button>
+        </div>
+      </div>
+    </div>
+    <div><br><br></div>
+    <div class="row">
+      <div class="col-md-12">
+        <table id="storedData" class="table table-dark">
+          <!-- Table content will be added dynamically -->
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+  <script src="localstore.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5788763487082575"
+     crossorigin="anonymous"></script>
+</body>
+
+</html>
