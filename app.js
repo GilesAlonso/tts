@@ -60,6 +60,7 @@ playButton.addEventListener('click', function () {
     paused = false;
   } else { 
   utterance.rate = rate.value;
+  window.speechSynthesis.cancel();
   speakText();
   }
 });
