@@ -54,8 +54,14 @@ function updateVoicesAndSpeak() {
 window.speechSynthesis.onvoiceschanged = updateVoicesAndSpeak;
 
 playButton.addEventListener('click', function () {
+  if (window.speechSynthesis.paused) {
+    utterance.rate = rate.value;
+    window.speechSynthesis.resume();
+    paused = false;
+  } else { 
   utterance.rate = rate.value;
   speakText();
+  }
 });
 
 pauseButton.addEventListener('click', function () {
