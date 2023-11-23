@@ -7,7 +7,6 @@ const rate = document.querySelector("#rate");
 
 let utterance = new SpeechSynthesisUtterance();
 let paused = false;
-let voices = [];
 
 function speakText() {
   if (!window.speechSynthesis) {
@@ -17,27 +16,21 @@ function speakText() {
 
   utterance.text = textInput.value;
 
-  // Get the browser language
-  const browserLanguage = navigator.language;
+  const selectedVoice = voiceSelect.selectedOptions[0].getAttribute('data-name');
+  const foundVoice = window.speechSynthesis.getVoices().find(voice => voice.name === selectedVoice);
 
-  // Find a voice that matches the browser language
-  const selectedVoice = voices.find(voice => voice.lang.startsWith(browserLanguage));
-
-  if (selectedVoice) {
-    utterance.voice = selectedVoice;
+  if (foundVoice) {
+    utterance.voice = foundVoice;
+    utterance.rate = rate.value;
     window.speechSynthesis.speak(utterance);
   } else {
-    alert('Voice for browser language not found. Using default voice.');
-    // If no matching voice is found, use the default voice
-    utterance.voice = voices[0];
-    window.speechSynthesis.speak(utterance);
+    alert('Selected voice not found.');
   }
 }
 
 function populateVoices() {
-  voices = window.speechSynthesis.getVoices();
   voiceSelect.innerHTML = '';
-  voices.forEach(voice => {
+  window.speechSynthesis.getVoices().forEach(voice => {
     const option = document.createElement('option');
     option.textContent = `${voice.name} (${voice.lang})`;
     option.setAttribute('data-lang', voice.lang);
@@ -46,32 +39,25 @@ function populateVoices() {
   });
 }
 
-function updateVoicesAndSpeak() {
+window.speechSynthesis.onvoiceschanged = () => {
   populateVoices();
-  speakText();
-}
-
-window.speechSynthesis.onvoiceschanged = updateVoicesAndSpeak;
+};
 
 playButton.addEventListener('click', function () {
   if (window.speechSynthesis.paused) {
-    utterance.rate = rate.value;
     window.speechSynthesis.resume();
     paused = false;
-  } else { 
-  utterance.rate = rate.value;
-  window.speechSynthesis.cancel();
-  speakText();
+  } else {
+    window.speechSynthesis.cancel();
+    speakText();
   }
 });
 
 pauseButton.addEventListener('click', function () {
   if (window.speechSynthesis.paused) {
-    utterance.rate = rate.value;
     window.speechSynthesis.resume();
     paused = false;
   } else {
-    utterance.rate = rate.value;
     window.speechSynthesis.pause();
     paused = true;
   }
@@ -82,4 +68,6 @@ clearButton.addEventListener('click', function () {
   textInput.value = '';
 });
 
-populateVoices();
+voiceSelect.addEventListener('change', function () {
+  speakText();
+});
