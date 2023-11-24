@@ -17,8 +17,13 @@
       margin-top: 20px;
     }
   </style>
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5788763487082575"
-     crossorigin="anonymous"></script>
+  <script src="https://apis.google.com/js/api.js"></script>
+  <script>
+    gapi.load('client', () => {
+      // Client library is loaded, proceed with API usage
+      // Call authenticate function here or elsewhere in your code
+    });
+  </script>
 </head>
 
 <body>
@@ -38,6 +43,10 @@
           <button id="clearButton" class="btn btn-danger btn-lg w-25 m-1">Clear</button>
           <button id="storeButton" class="btn btn-success btn-lg w-25 m-1">Store</button>
         </div>
+        <div class="d-flex justify-content-between">
+          <button id="googleStoreButton" class="btn btn-success btn-lg w-25 m-1">Upload</button>
+          <button id="googleDownloadButton" class="btn btn-dark btn-lg w-25 m-1">Download</button>
+        </div>
       </div>
     </div>
     <div><br><br></div>
@@ -52,6 +61,8 @@
 
   <script src="app.js"></script>
   <script src="localstore.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5788763487082575"
+     crossorigin="anonymous"></script>
 </body>
 
 </html>
