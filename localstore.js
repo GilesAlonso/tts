@@ -19,7 +19,6 @@ function authenticate(action) {
   gapi.auth.authorize(
     {
       'client_id': CLIENT_ID,
-      'secret': SECRET,
       'scope': SCOPES,
       'immediate': false
     },
