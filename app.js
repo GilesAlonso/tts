@@ -3,7 +3,7 @@ const playButton = document.getElementById('playButton');
 const pauseButton = document.getElementById('pauseButton');
 const clearButton = document.getElementById('clearButton');
 const voiceSelect = document.getElementById('voiceSelect');
-const rate = document.querySelector("#rate");
+const rate = document.getElementById("rate");
 const synth = window.speechSynthesis;
 
 
@@ -100,4 +100,8 @@ clearButton.addEventListener('click', function () {
 
 voiceSelect.addEventListener('change', function () {
   speakText();
+});
+
+rate.addEventListener('onchange', function () {
+  utterance.rate = rate.value;
 });
