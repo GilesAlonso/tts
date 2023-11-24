@@ -12,12 +12,15 @@ function authenticate(action) {
 
   // Replace with your own client ID and API key
   const CLIENT_ID = '541262644769-ut62o7bo3gg0cc7dqaeshf1c12l6etnp.apps.googleusercontent.com';
-  const API_KEY = 'AIzaSyCP00302x0yNvuSmu4BMjzp3p0XJRzHDwD';
+  const SECRET = ${{ secrets.CLIENTSECRET }}
   const SCOPES = 'https://www.googleapis.com/auth/drive.file';
+
+  
 
   gapi.auth.authorize(
     {
       'client_id': CLIENT_ID,
+      'secret': SECRET,
       'scope': SCOPES,
       'immediate': false
     },
