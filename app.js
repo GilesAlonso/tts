@@ -4,11 +4,16 @@ const pauseButton = document.getElementById('pauseButton');
 const clearButton = document.getElementById('clearButton');
 const voiceSelect = document.getElementById('voiceSelect');
 const rate = document.querySelector("#rate");
+const synth = window.speechSynthesis;
+
+
+
 
 let utterance = new SpeechSynthesisUtterance();
 let paused = false;
 
 function speakText() {
+  utterance = new SpeechSynthesisUtterance();
   if (!window.speechSynthesis) {
     alert('Your browser does not support text-to-speech');
     return;
@@ -16,18 +21,19 @@ function speakText() {
 
   utterance.text = textInput.value;
 
-  const selectedVoice = voiceSelect.selectedOptions[0].getAttribute('data-name');
+  const selectedVoice = voiceSelect.value;
   const foundVoice = window.speechSynthesis.getVoices().find(voice => voice.name === selectedVoice);
 
   if (foundVoice) {
     utterance.voice = foundVoice;
     utterance.rate = rate.value;
-    window.speechSynthesis.speak(utterance);
+    synth.speak(utterance);
+    paused = false;
   } else {
     alert('Selected voice not found.');
   }
 }
-
+/** 
 function populateVoices() {
   voiceSelect.innerHTML = '';
   window.speechSynthesis.getVoices().forEach(voice => {
@@ -42,6 +48,30 @@ function populateVoices() {
 window.speechSynthesis.onvoiceschanged = () => {
   populateVoices();
 };
+*/
+
+
+let synthVoices = [];
+
+function populateVoices() {
+    synthVoices = synth.getVoices();
+    voiceSelect.innerHTML = '';
+
+    for (let voice of synthVoices) {
+        let option = document.createElement('option');
+        option.textContent = `${voice.name} (${voice.lang})`;
+        option.value = voice.name;
+        voiceSelect.appendChild(option);
+    }
+}
+
+synth.addEventListener('voiceschanged', populateVoices);
+populateVoices();
+
+
+
+
+
 
 playButton.addEventListener('click', function () {
   if (window.speechSynthesis.paused) {
