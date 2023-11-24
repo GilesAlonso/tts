@@ -11,7 +11,7 @@ const storedData = document.getElementById('storedData');
 function authenticate(action) {
 
   // Replace with your own client ID and API key
-  const CLIENT_ID = 'tts-reader-406113';
+  const CLIENT_ID = '541262644769-ut62o7bo3gg0cc7dqaeshf1c12l6etnp.apps.googleusercontent.com';
   const API_KEY = 'AIzaSyCP00302x0yNvuSmu4BMjzp3p0XJRzHDwD';
   const SCOPES = 'https://www.googleapis.com/auth/drive.file';
 
